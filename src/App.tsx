@@ -4,7 +4,7 @@ import GameModal from "./components/GameModal";
 import DifficultySelecotor from "./components/DifficultySelector";
 
 function App() {
-  const gameCompleted = true;
+  const gameCompleted = false;
   const difficulty = null;
 
   if (!difficulty) return <DifficultySelecotor />;
