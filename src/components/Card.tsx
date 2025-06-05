@@ -8,7 +8,6 @@ const CARD_STYLES = {
   front:
     "rotate-y-180 text-2xl xs:text-3xl sm:text-4xl border-purple-200 bg-white",
 };
-
 type CardProps = {
   emoji: string;
 };
@@ -22,7 +21,7 @@ function Card({ emoji }: CardProps) {
 
   return (
     <div
-      className="xs:h-20 xs:w-20 relative h-16 w-16 cursor-pointer sm:h-24 sm:w-24"
+      className="relative h-16 w-16 cursor-pointer xs:h-20 xs:w-20 sm:h-24 sm:w-24"
       onClick={handleClick}
     >
       {/* div do 3D */}
@@ -36,7 +35,8 @@ function Card({ emoji }: CardProps) {
         <div className={cn(CARD_STYLES.base, CARD_STYLES.back)}>
           <Sparkles className="h-6 w-6 animate-pulse text-white sm:w-8" />
         </div>
-        /{/* Card front */}
+
+        {/* Card front */}
         <div className={cn(CARD_STYLES.base, CARD_STYLES.front)}>{emoji}</div>
       </div>
     </div>
