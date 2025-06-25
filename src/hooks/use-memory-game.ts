@@ -20,7 +20,17 @@ export function useMemoryGame() {
     setCards(createShuffledCards());
   };
 
+  const handleCardClick = (id: number) => {
+    //flip the cliecked card
+
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id ? { ...card, isFlipped: true } : card,
+      ),
+    );
+  };
+
   useEffect(initializeGame, []);
 
-  return { cards, resetGame: initializeGame };
+  return { cards, resetGame: initializeGame, handleCardClick };
 }

@@ -7,14 +7,14 @@ import { useMemoryGame } from "./hooks/use-memory-game";
 function App() {
   const gameCompleted = false;
   const difficulty = "easy";
-  const { cards } = useMemoryGame();
+  const { cards, handleCardClick } = useMemoryGame();
 
   if (!difficulty) return <DifficultySelecotor />;
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-blue-200 p-4 sm:gap-8 sm:p-8">
       <ScoreBoard moves={0} time={0} onRestart={() => {}} />
-      <GameBoard cards={cards} />
+      <GameBoard cards={cards} onCardClick={handleCardClick} />
       {gameCompleted && <GameModal moves={10} time={0} onRestart={() => {}} />}
     </div>
   );
