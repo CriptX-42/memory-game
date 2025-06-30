@@ -10,10 +10,11 @@ const CARD_STYLES = {
 type CardProps = {
   emoji: string;
   isFlipped: boolean;
+  isMatched: boolean;
   onClick: () => void;
 };
 
-function Card({ emoji, isFlipped, onClick }: CardProps) {
+function Card({ emoji, isFlipped, isMatched, onClick }: CardProps) {
   return (
     <div
       className="relative h-16 w-16 cursor-pointer xs:h-20 xs:w-20 sm:h-24 sm:w-24"
@@ -32,7 +33,15 @@ function Card({ emoji, isFlipped, onClick }: CardProps) {
         </div>
 
         {/* Card front */}
-        <div className={cn(CARD_STYLES.base, CARD_STYLES.front)}>{emoji}</div>
+        <div
+          className={cn(
+            CARD_STYLES.base,
+            CARD_STYLES.front,
+            isMatched && "bg-green-100",
+          )}
+        >
+          {emoji}
+        </div>
       </div>
     </div>
   );
