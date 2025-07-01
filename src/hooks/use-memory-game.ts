@@ -16,6 +16,7 @@ export const createShuffledCards = () => {
 export function useMemoryGame() {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<Card[]>([]);
+  const [moves, setMoves] = useState(0);
 
   const initializeGame = () => {
     setCards(createShuffledCards());
@@ -46,6 +47,7 @@ export function useMemoryGame() {
     setFlippedCards(newFlippedCards);
 
     if (newFlippedCards.length === 2) {
+      setMoves((prevMoves) => prevMoves + 1);
       const [firstCard, secondCard] = newFlippedCards;
 
       const isMatched = firstCard.emoji === secondCard.emoji;
@@ -69,5 +71,5 @@ export function useMemoryGame() {
 
   useEffect(initializeGame, []);
 
-  return { cards, resetGame: initializeGame, handleCardClick };
+  return { cards, moves, resetGame: initializeGame, handleCardClick };
 }
