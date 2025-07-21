@@ -14,16 +14,26 @@ export const createShuffledCards = () => {
     }));
 };
 
+export const checkGameCompletion = (cards: Card[]) => {
+  return cards.every((card: Card) => card.isMatched);
+};
+
 export function useMemoryGame() {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<Card[]>([]);
   const [moves, setMoves] = useState(0);
   const [gameStarted, setgameStarted] = useState(false);
+  const [gameCompleted, setgameCompleted] = useState(false);
 
-  const { time } = useTimer(gameStarted);
+  const { time, resetTime } = useTimer(gameStarted && !gameCompleted);
 
   const initializeGame = () => {
     setCards(createShuffledCards());
+    setMoves(0);
+    resetTime();
+    setgameStarted(false);
+    setgameCompleted(false);
+    setFlippedCards([]);
   };
 
   const handleCardClick = (id: number) => {
@@ -71,11 +81,22 @@ export function useMemoryGame() {
 
         setCards(updatedCards);
         setFlippedCards([]);
+
+        if (isMatched && checkGameCompletion(updatedCards)) {
+          setgameCompleted(true);
+        }
       }, 500);
     }
   };
 
   useEffect(initializeGame, []);
 
-  return { cards, moves, resetGame: initializeGame, handleCardClick, time };
+  return {
+    cards,
+    moves,
+    resetGame: initializeGame,
+    handleCardClick,
+    time,
+    gameCompleted,
+  };
 }
